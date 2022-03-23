@@ -1,0 +1,13 @@
+[Unit]
+Description=Energenie power switch controller
+Requires=mosquitto.service
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/home/pi/python/home_automation/venv/bin/python /home/pi/python/home_automation/main.py
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
