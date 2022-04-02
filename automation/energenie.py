@@ -23,8 +23,8 @@ class EnergenieClient:
             'apparent_power': r.apparent_power,
             'reactive_power': r.reactive_power,
             'real_power': r.real_power,
-            'powered': 'true' if r.switch else 'false',
-			'in_use':  'true' if r.real_power > 0 else 'false'
+            'powered': True if r.switch else False,
+			'in_use':  True if r.real_power > 0 else False
             }
 		if self._handler:
 			self._handler.handle(self._latest)
