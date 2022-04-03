@@ -21,7 +21,6 @@ class Heatmiser:
 	def __init__(self):
 		with open('heatmiser.conf') as f:
 			conf = json.load(f)
-			print(conf)
 			self.HOST_ADDR = (conf['HOST_ADDR'], conf['HOST_PORT'])
 			self.pin_h = int(conf["PIN"][0:2],16)
 			self.pin_l = int(conf["PIN"][2:4],16)
@@ -146,4 +145,4 @@ class Heatmiser:
 if __name__ == '__main__':
 	h = Heatmiser()
 	reading = json.dumps(h.get_current_data()._asdict(), default=json_serial)
-	print(f'Current reading {reading}')
+	print(f'{reading}')
