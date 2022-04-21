@@ -1,6 +1,7 @@
 # project files
 heatmiser.conf
 registry.kvs
+home_automation
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
