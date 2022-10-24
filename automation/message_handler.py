@@ -69,7 +69,6 @@ class MessageHandler:
                     else:
                         self.expected_value = None
                         self.retry_count = 0
-                        raise Exception('BLASH 1')
                 elif latest["switch"]:
                     if not self.expected_value:
                         print("Retry - OFF")
@@ -78,14 +77,14 @@ class MessageHandler:
                     else:
                         self.expected_value = None
                         self.retry_count = 0
-                        raise Exception('BLASH 2')
                 else:
                         print("Unexpected value of switch")
             except Exception as err:
                 print(err)
                 print(latest)
         else:
-            print("No need to retry")
+            pass
+            #print("No need to retry")
 
     def on_message(self, mqttc, obj, msg):
         if msg.payload == b'true':
