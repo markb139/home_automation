@@ -62,16 +62,18 @@ class MessageHandler:
             try:
                 if not latest["switch"] :
                     if self.expected_value:
-                        print("Retry - ON")
-                        self._switch.turn_on()
+                        #print("Retry - ON")
+                        ret = self._switch.turn_on()
+                        print(f"Retry - ON {ret}")
                         self.retry_count += 1
                     else:
                         self.expected_value = None
                         self.retry_count = 0
                 elif latest["switch"]:
                     if not self.expected_value:
-                        print("Retry - OFF")
-                        self._switch.turn_off()
+                        #print("Retry - OFF")
+                        ret = self._switch.turn_off()
+                        print(f"Retry - OFF ret {ret}")
                         self.retry_count += 1
                     else:
                         self.expected_value = None
@@ -87,13 +89,15 @@ class MessageHandler:
 
     def on_message(self, mqttc, obj, msg):
         if msg.payload == b'true':
-            print('ON')
-            self._switch.turn_on()
+            #print('ON')
+            ret = self._switch.turn_on()
+            print(f"ON ret {ret}")
             self.expected_value=True
             self.retry_count = 0
         elif msg.payload == b'false':
-            print('OFF')
-            self._switch.turn_off()
+            #print('OFF')
+            ret= self._switch.turn_off()
+            print(f"OFF ret {ret}")
             self.expected_value=False
             self.retry_count = 0
         else:
