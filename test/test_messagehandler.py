@@ -3,7 +3,6 @@ from paho.mqtt import client
 from paho.mqtt.publish import single
 
 from automation import message_handler
-import automation
 
 class TestMessageHandler(TestCase):
     def setUp(self) -> None:

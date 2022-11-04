@@ -1,5 +1,32 @@
 import datetime
 from pyenergenie import energenie
+from paho.mqtt.publish import single
+from automation.message_handler import MQTTSwitchInfoPublisher
+
+class EnergenieUpdateReporter:
+	def __init__(self, topic, host):
+		self.publisher = MQTTSwitchInfoPublisher(topic, host, publisher=single)
+
+	def report(self, latest):
+		self.publisher.publish(latest)
+
+
+class EnergenieUpdateHandler:
+	def __init__(self):
+		self._power_status = None
+		self._reporter = None
+
+	def power_status(self, power_status):
+		self._power_status = power_status
+
+	def reporter(self, reporter):
+		self._reporter = reporter
+
+	def handle(self, data):
+		print(f"Handler:handle {data}")
+		self._power_status.switch_status(data['switch'])
+		self._reporter.report(data)
+
 
 class EnergenieClient:
 	def __init__(self, handler=None):
@@ -7,7 +34,7 @@ class EnergenieClient:
 		self._handler = handler
 		energenie.init()
 		energenie.registry.load_into(self)
-		print(f'switch {self.switch}')
+		print(f'EnergenieClient.switch {self.switch}')
 		self.switch.when_updated(self._update)
 
 	def _update(self, d, payload):
