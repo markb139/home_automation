@@ -37,8 +37,7 @@ class MQTTSwitchInfoPublisher:
         try:
             self.publisher(topic=self.switch_subject, payload=json.dumps(data), hostname=self.mqtt_host)
         except Exception as err:
-            print(err)
-            print(data)
+            print(f"Error publish: '{err}' data: {data}")
 
 class MessageHandler:
     def __init__(self, mqtt_client=None, publisher=single):
