@@ -23,18 +23,16 @@ class EnergenieUpdateHandler:
 		self._reporter = reporter
 
 	def handle(self, data):
-		print(f"Handler:handle {data}")
+		print(f"{data}")
 		self._power_status.switch_status(data['switch'])
 		self._reporter.report(data)
 
 
 class EnergenieClient:
 	def __init__(self, handler=None):
-		print("EnergenieClient")
 		self._handler = handler
 		energenie.init()
 		energenie.registry.load_into(self)
-		print(f'EnergenieClient.switch {self.switch}')
 		self.switch.when_updated(self._update)
 
 	def _update(self, d, payload):

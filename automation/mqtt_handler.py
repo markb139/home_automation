@@ -20,7 +20,7 @@ class MQTTHandler:
             raise Exception("Empty topic error")
 
     def _on_message(self, client, userdata, message):
-        print(f"MQTTHandler:_on_message {userdata} {message.payload}")
+        # print(f"MQTTHandler:_on_message {userdata} {message.payload}")
         payload = json.loads(message.payload)
         if isinstance(payload, bool):
             self.callback(payload)

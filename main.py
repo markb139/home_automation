@@ -35,7 +35,7 @@ def setup_mqttHandler(callback):
 	return mqtt_handler
 
 
-def main_new():
+def main():
 	switch = SwitchHandler(switch_callback=None)
 	energenie_client = setup_energenie_client(switch)
 
@@ -52,20 +52,5 @@ def main_new():
 		energenie_client.finished()
 
 
-def main():
-	m = MessageHandler(mqtt_client=client.Client())
-	e = EnergenieClient(handler=m)
-	m.set_switch(e.switch)
-	
-	try:
-		while True:
-			e.loop()
-			m.loop()
-			time.sleep(APP_DELAY)
-	finally:
-		e.finished()
-
-
 if __name__ == '__main__':
-	# main()
-	main_new()
+	main
