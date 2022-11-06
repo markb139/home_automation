@@ -63,9 +63,9 @@ class TestSwitchHandler(TestCase):
         handler = swtich_handler.SwitchHandler(switch_callback=callback)
         handler.flick_switch(True)
         self.assertTrue(handler.is_trying)
-        handler.switch_status = False
+        handler.switch_status(False)
         self.assertTrue(handler.is_trying)
-        handler.switch_status = True
+        handler.switch_status(True)
         self.assertFalse(handler.is_trying)
 
         callback.assert_has_calls([mock.call(switch_on=True), mock.call(switch_on=True)])
@@ -75,12 +75,12 @@ class TestSwitchHandler(TestCase):
         handler = swtich_handler.SwitchHandler(switch_callback=callback)
         handler.flick_switch(False)
         self.assertTrue(handler.is_trying)
-        handler.switch_status = True
+        handler.switch_status(True)
         self.assertTrue(handler.is_trying)
-        handler.switch_status = False
+        handler.switch_status(False)
         self.assertFalse(handler.is_trying)
-        handler.switch_status = False
-        handler.switch_status = False
+        handler.switch_status(False)
+        handler.switch_status(False)
         callback.assert_has_calls([mock.call(switch_on=False), mock.call(switch_on=False)])
 
     def test_can_switch_off_callsout_and_stops_retries(self):
@@ -88,11 +88,11 @@ class TestSwitchHandler(TestCase):
         handler = swtich_handler.SwitchHandler(switch_callback=callback)
         handler.flick_switch(False)
         self.assertTrue(handler.is_trying)
-        handler.switch_status = True
+        handler.switch_status(True)
         self.assertTrue(handler.is_trying)
-        handler.switch_status = False
+        handler.switch_status(False)
         self.assertFalse(handler.is_trying)
-        handler.switch_status = False
-        handler.switch_status = True
+        handler.switch_status(False)
+        handler.switch_status(True)
         self.assertFalse(handler.is_trying)
         callback.assert_has_calls([mock.call(switch_on=False), mock.call(switch_on=False)])

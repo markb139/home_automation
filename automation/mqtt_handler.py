@@ -1,6 +1,10 @@
 import json
 from paho.mqtt import client
 
+
+class EmptyTopicException(Exception):
+    pass
+
 class MQTTHandler:
     def __init__(self, client_factory=None):
         self.client = client_factory()
@@ -17,7 +21,7 @@ class MQTTHandler:
             self.callback = callback
             self.client.subscribe(topic, 0)
         else:
-            raise Exception("Empty topic error")
+            raise EmptyTopicException("Empty topic error")
 
     def _on_message(self, client, userdata, message):
         # print(f"MQTTHandler:_on_message {userdata} {message.payload}")

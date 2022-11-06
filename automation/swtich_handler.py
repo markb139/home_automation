@@ -1,8 +1,12 @@
 class SwitchHandler:
-    def __init__(self, switch_callback=None):
+    def __init__(self, switch_callback):
         self._switch_status = None
         self._expected = None
         self._switch_callback = switch_callback
+
+    @property
+    def is_trying(self): # pragma: no cover
+        return self._expected is not None
 
     @property
     def switch_callback(self):
@@ -16,9 +20,8 @@ class SwitchHandler:
     def switch_status(self, value: bool):
         if self._expected is not None:
             if self._expected != value:
-                if self.switch_callback:
-                    print(f"Retry {'ON' if self._expected else 'OFF'}")
-                    self.switch_callback(switch_on=self._expected)
+                print(f"Retry {'ON' if self._expected else 'OFF'}")
+                self.switch_callback(switch_on=self._expected)
             else:
                 self._expected = None
 
@@ -26,6 +29,5 @@ class SwitchHandler:
 
     def flick_switch(self, switch_on: bool):
         self._expected = switch_on
-        if self._switch_callback:
-            print(f"{'ON' if self._expected else 'OFF'}")
-            self._switch_callback(switch_on=switch_on)
+        print(f"{'ON' if self._expected else 'OFF'}")
+        self._switch_callback(switch_on=switch_on)

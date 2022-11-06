@@ -29,7 +29,7 @@ class EnergenieUpdateHandler:
 
 
 class EnergenieClient:
-	def __init__(self, handler=None):
+	def __init__(self, handler):
 		self._handler = handler
 		energenie.init()
 		energenie.registry.load_into(self)
@@ -49,8 +49,7 @@ class EnergenieClient:
 			'powered': True if r.switch else False,
 			'in_use':  True if r.real_power > 0 else False
 		}
-		if self._handler:
-			self._handler.handle(self._latest)
+		self._handler.handle(self._latest)
 
 	@staticmethod
 	def loop():
