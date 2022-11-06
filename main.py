@@ -1,3 +1,5 @@
+import os
+import sys
 import time
 import json
 from collections import namedtuple
@@ -34,7 +36,8 @@ def setup_mqttHandler(callback, host, port, listen_topic):
 
 
 def load_config():
-    with open('/home/pi/python/home_automation/home_automation.conf') as f:
+    config_path = os.path.join(sys.path[0], 'home_automation.conf')
+    with open(config_path) as f:
         conf = json.load(f)
         host = conf['HOST_ADDR']
         port = conf['HOST_PORT']
