@@ -36,7 +36,7 @@ def setup_mqttHandler(callback, host, port, listen_topic):
 
 
 def load_config():
-	with open('home_automation.xxx') as f:
+	with open('home_automation.conf') as f:
 		conf = json.load(f)
 		host = conf['HOST_ADDR']
 		port = conf['HOST_PORT']
