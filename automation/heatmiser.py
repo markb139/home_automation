@@ -22,6 +22,7 @@ class Heatmiser:
         config_path = os.path.join(sys.path[0], 'heatmiser.conf')
         with open(config_path) as f:
             conf = json.load(f)
+            # print(f"conf: {conf}")
             self.HOST_ADDR = (conf['HOST_ADDR'], conf['HOST_PORT'])
             self.pin_h = int(conf["PIN"][0:2], 16)
             self.pin_l = int(conf["PIN"][2:4], 16)

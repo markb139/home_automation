@@ -30,8 +30,8 @@ def setup_energenie_client(switch, host, topic):
 
 def setup_mqttHandler(callback, host, port, listen_topic):
     mqtt_handler = MQTTHandler(client_factory=client.Client)
-    mqtt_handler.connect(host=host, port=port, keepalive=60)
     mqtt_handler.subscribe(listen_topic, callback=callback)
+    mqtt_handler.connect(host=host, port=port, keepalive=60)
     return mqtt_handler
 
 
@@ -69,6 +69,8 @@ def main():
             energenie_client.loop()
             mqtt_handler.loop()
             time.sleep(APP_DELAY)
+    except Excetion as err:
+        print(f"Error {err}")
     finally:
         energenie_client.finished()
 
